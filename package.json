@@ -1,0 +1,6 @@
+{
+  "scripts": {},
+	"devDependencies": {
+		"miniprogram-api-typings": "^2.8.3"
+	}
+}

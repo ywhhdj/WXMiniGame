@@ -1,0 +1,25 @@
+<layout bgType="night">
+  <view class="container">
+    <!-- 顶部：header -->
+    <view class="flex header">
+      <view class="flex align-right buttons">
+      <view class="button-item">
+        <achievement />
+      </view>
+      <view class="button-item">
+        <background-music/>
+      </view>
+      </view>
+    </view>
+    <!-- 中间占位（自动撑开，将底部内容推下去） -->
+    <view class="spacer"></view>
+    <view class="bottom-section">
+      <view class="align-left game-nav">
+        <game-nav />
+      </view>
+      <view class="home-tip">
+        <text>点击菜单，开始你的时光之旅</text>
+      </view>
+    </view>
+  </view>
+</layout>

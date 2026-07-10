@@ -1,0 +1,9 @@
+<view class="setting-item">
+  <view class="setting-item-header">
+    <Icon wx:if="{{icon}}" type="{{icon}}" size="20" />
+    <text class="title">{{title}}</text>
+  </view>
+  <view class="main-content">
+    <slot></slot>
+  </view>
+</view>

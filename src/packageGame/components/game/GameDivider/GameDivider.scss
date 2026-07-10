@@ -1,0 +1,21 @@
+$game-role-border-color: #C4A46C;
+
+.game-role-divider {
+  max-height: 180rpx;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 6rpx 20rpx 4rpx;
+  position: relative;
+  z-index: 1;
+
+  .divider-line {
+    flex: 1;
+    height: 1rpx;
+    background: linear-gradient(90deg, transparent, $game-role-border-color, #8B6914, $game-role-border-color, transparent);
+  }
+  .divider-dot {
+    color: #8B6914;
+    font-size: 12rpx;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "component": true,
+  "usingComponents": {
+    "background-image":"./BackgroundImage/BackgroundImage",
+    "notification": "./Notification/Notification"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "custom-button":"/components/base/Button/Button",
+    "Icon":"/components/base/Icon/Icon",
+    "setting-item": "../SettingItem/SettingItem"
+  }
+}

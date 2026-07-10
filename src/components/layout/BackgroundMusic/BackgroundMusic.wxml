@@ -1,0 +1,8 @@
+<view bindtap="onToggleMusic">
+  <view hidden="{{!isPlaying}}">
+    <Icon type="sound_on" size="32" />
+  </view>
+  <view hidden="{{isPlaying}}">
+    <Icon type="sound_off" size="32" />
+  </view>
+</view>

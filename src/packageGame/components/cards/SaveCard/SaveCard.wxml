@@ -1,0 +1,20 @@
+<!--components/cards/SaveCard/SaveCard.wxml-->
+<view class="archive-card {{isEmpty ? 'empty' : ''}}" catch:tap="onCardTap">
+  <view wx:if="{{isEmpty}}">
+    <view class="empty-content">
+      <text class="plus">+</text>
+      <text class="label">存档 #{{saveId}} · 空位</text>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="card-header">
+      <slot name="header"></slot>
+    </view>
+    <view class="card-body">
+      <slot name="body"></slot>
+    </view>
+    <view class="card-preview">
+      <slot name="preview"></slot>
+    </view>
+  </view>
+</view>

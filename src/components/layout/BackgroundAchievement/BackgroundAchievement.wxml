@@ -1,0 +1,65 @@
+<!--components/layout/BackgroundAchievement/BackgroundAchievement.wxml-->
+<view class="background-achievement">
+  <Icon type="achievement" size="32" bindtap="showEndingModal"/>
+</view>
+<!-- 弹窗 -->
+<view hidden="{{!showModal}}" class="modal-overlay" bindtap="hideEndingModal">
+  <view class="modal" catchtap="preventClose">
+    <view class="modal-header">
+      <text class="modal-title">收集与成就</text>
+      <view bindtap="hideEndingModal">
+        <Icon type="close" size="24" />
+      </view>
+    </view>
+
+    <!-- Tab 切换 -->
+    <view class="tab-bar">
+      <view class="tab-item {{activeTab === 'endings' ? 'active' : ''}}" data-tab="endings" bindtap="switchTab">
+        <text>游历成就</text>
+      </view>
+      <view class="tab-item {{activeTab === 'achievements' ? 'active' : ''}}" data-tab="achievements" bindtap="switchTab">
+        <text>修仙成就</text>
+      </view>
+    </view>
+
+    <!-- 结局收集面板 -->
+    <view hidden="{{activeTab !== 'endings'}}">
+      <view class="ending-summary">
+        <text class="ending-summary-icon">🏆</text>
+        <text class="text">收集进度：{{collectedEndings}} / {{totalEndings}}</text>
+        <text class="text">{{progress}}%</text>
+      </view>
+      <view class="endings-list">
+        <view wx:for="{{scenes}}" wx:key="id" class="scene-endings">
+          <text class="scene-title">{{item.icon}} {{item.title}}</text>
+          <view class="endings-grid">
+            <view wx:for="{{item.endingsList}}" wx:key="key" wx:for-item="ending" class="ending-item {{ending.collected ? 'collected' : ''}}">
+              <text>{{ending.text}}</text>
+              <text wx:if="{{ending.collected}}">✓</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成就面板 -->
+    <view hidden="{{activeTab !== 'achievements'}}">
+      <view class="ending-summary achievement-summary">
+        <text class="ending-summary-icon">🎯</text>
+        <text class="text">成就进度：{{collectedAchievements}} / {{totalAchievements}}</text>
+        <text class="text">{{totalAchievements ? Math.round(collectedAchievements / totalAchievements * 100) : 0}}%</text>
+      </view>
+
+      <view class="achievements-list">
+        <view wx:for="{{achievements}}" wx:key="id" class="achievement-item {{item.unlocked ? 'unlocked' : 'locked'}}">
+          <view class="achievement-icon">{{item.icon}}</view>
+          <view class="achievement-info">
+            <text class="achievement-title">{{item.unlocked ? item.title : '???'}}</text>
+            <text class="achievement-desc">{{item.unlocked ? item.desc : '尚未解锁'}}</text>
+          </view>
+          <view wx:if="{{item.unlocked}}" class="achievement-badge">✓</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

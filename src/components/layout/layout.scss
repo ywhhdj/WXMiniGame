@@ -1,0 +1,28 @@
+.global-container {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1; /* 确保内容在背景之上 */
+  align-items: center;
+}
+
+.flow-window{
+  border-radius: 8px;
+  background-color: rgb(255 255 255 / 41%);
+  position: fixed;
+  bottom: 20px;
+  right: 7px;
+  width: 35px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+}

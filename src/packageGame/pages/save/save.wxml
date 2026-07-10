@@ -1,0 +1,129 @@
+<layout bgType="night">
+  <!-- 导航栏 -->
+  <view class="nav">
+    <view class="title">
+      <text class="title">存档</text>
+    </view>
+  </view>
+
+  <!-- 装饰小元素 -->
+  <text wx:for="{{decos}}" wx:key="*this" class="deco deco-{{index+1}}">{{item}}</text>
+
+  <!-- 存档列表 -->
+  <scroll-view class="archive-list" enable-flex scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- ===== 自动存档（slot 0，不可删除） ===== -->
+    <save-card saveId="{{autoArchive.id}}" class="archive-card" bind:cardtap="onLoadArchive">
+      <view slot="header" class="header">
+        <view class="card-number auto-tag">
+          <text class="tag">自动</text>
+        </view>
+      </view>
+      <view slot="body" class="flex-col body">
+        <view class="flex flex-row gap-1">
+          <avatar class="card-avatar" src="{{autoArchive.avatar}}" size="{{80}}" />
+          <view class="card-info">
+            <!-- 名称 + 境界 -->
+            <view class="info-top">
+              <text class="name">{{autoArchive.name || '无名'}}</text>
+              <text class="level-tag level-{{autoArchive.level.level}}">{{autoArchive.level.name || '练气期'}}</text>
+            </view>
+            <!-- 五行元素 -->
+            <view class="w-full elements-row">
+              <text wx:for="{{manualElementsArrs[index]}}" wx:key="key" class="elem-chip elem-{{item.key}}">
+                {{item.name}} {{item.leveName}}
+              </text>
+            </view>
+            <!-- 属性 -->
+            <view class="w-full attrs-row">
+              <view wx:for="{{manualAttrsArrs[index]}}" wx:key="key" class="attr-item">
+                <text class="attr-n">{{item.name}}</text>
+                <text class="attr-v">{{item.val}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 时间 + 年龄 -->
+        <view class="card-meta w-full">
+          <text class="time">{{autoArchive.time}}</text>
+          <text class="age">道历{{autoArchive.age}}年</text>
+        </view>
+      </view>
+      <view slot="preview" class="preview">
+        <text class="quote">{{autoArchive.preview}}</text>
+      </view>
+    </save-card>
+
+    <!-- ===== 手动存档 ===== -->
+    <save-card wx:for="{{manualArchives}}" wx:key="*this" class="archive-card" bind:cardtap="onLoadArchive" saveId="{{item.id}}">
+      <view slot="header" class="header">
+        <view class="card-number">
+          <text class="num">存档 #{{index + 1}}</text>
+        </view>
+        <view class="card-delete" data-id="{{item.id}}" catchtap="onDeleteTap">
+          <Icon type="close" />
+        </view>
+      </view>
+      <view slot="body" class="flex-col body">
+        <view class="flex flex-row gap-1">
+          <avatar src="{{item.avatar}}" size="{{64}}" />
+          <view class="card-info">
+            <!-- 名称 + 境界 -->
+            <view class="info-top">
+              <text class="name">{{item.name || '无名'}}</text>
+              <text class="level-tag level-{{item.level.level}}">{{item.level.name || '练气期'}}</text>
+            </view>
+            <!-- 五行元素 -->
+            <view class="w-full elements-row">
+              <text wx:for="{{manualElementsArrs[index]}}" wx:key="key" class="elem-chip elem-{{item.key}}">
+                {{item.name}} {{item.leveName}}
+              </text>
+            </view>
+            <!-- 属性 -->
+            <view class="w-full attrs-row">
+              <view wx:for="{{manualAttrsArrs[index]}}" wx:key="key" class="attr-item">
+                <text class="attr-n">{{item.name}}</text>
+                <text class="attr-v">{{item.val}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="card-meta w-full">
+          <text class="time">{{item.time}}</text>
+          <text class="age">道历{{item.age}}年</text>
+        </view>
+      </view>
+
+      <view slot="preview" class="preview">
+        <text class="quote">{{item.preview || '故事从这里开始…'}}</text>
+      </view>
+    </save-card>
+
+    <!-- 空存档位（手动） -->
+    <save-card wx:for="{{emptySlots}}" wx:key="*this" saveId="{{item}}" isEmpty="{{true}}" bind:cardtap="onNewArchive" />
+  </scroll-view>
+
+  <!-- 底部新建按钮 -->
+  <view class="footer">
+    <button class="btn-new" bindtap="onNewArchive">
+      <text class="icon">✚</text> 新建存档
+    </button>
+    <view class="back-btn" bindtap="onBack">
+      <image style="height: 100rpx;width:150rpx;" src="/assets/images/icons/back.webp" mode="aspectFit" />
+    </view>
+  </view>
+
+</layout>
+
+<view class="modal-overlay" hidden="{{!showModal}}" bindtap="onModalMask">
+  <view class="modal-box" catchtap="noop">
+    <view class="modal-icon">🗑️</view>
+    <view class="modal-title">删除存档</view>
+    <view class="modal-desc">
+      确定要删除「{{deleteTarget.name}}」的存档吗？<br />此操作不可撤销。
+    </view>
+    <view class="modal-actions">
+      <button class="btn-cancel" bindtap="onModalCancel">取消</button>
+      <button class="btn-confirm" bindtap="onModalConfirm">删除</button>
+    </view>
+  </view>
+</view>

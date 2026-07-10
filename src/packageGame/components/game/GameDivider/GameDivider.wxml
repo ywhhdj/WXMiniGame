@@ -1,0 +1,5 @@
+<view class="game-role-divider">
+  <view class="divider-line"></view>
+  <text class="divider-dot">◆</text>
+  <view class="divider-line"></view>
+</view>

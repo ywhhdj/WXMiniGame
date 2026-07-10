@@ -1,0 +1,113 @@
+/* 通知浮层容器 */
+.notify-overlay {
+  position: fixed;
+  top: 50rpx;
+  width: 400rpx;
+  right: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;
+}
+
+.notify-overlay--show {
+  display: block;
+}
+
+/* 通知卡片 */
+.notify-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 22px;
+  background: transparent;
+  backdrop-filter: blur(16px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(62, 37, 228, 0.12);
+  -webkit-backdrop-filter: blur(16px);
+  max-width: 70vw;
+  overflow: hidden;
+
+  /* 初始状态：右侧隐藏 + 略向下 */
+  transform: translateX(120%) translateY(10px);
+  opacity: 0;
+  transition: transform 0.38s cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 0.38s ease-out;
+}
+
+/* 入场动画：从右侧滑入 + 向上微弹 */
+.notify-card--enter {
+  transform: translateX(0) translateY(0);
+  opacity: 1;
+}
+
+/* 通知主体 */
+.notify-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* 通知图标 */
+.notify-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* 通知标题 */
+.notify-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  word-break: break-all;
+}
+
+/* 通知文本 */
+.notify-text {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+/* ========== levelType 颜色方案 ========== */
+
+/* success - 绿色 */
+.notify-card--success {
+  border-color: rgba(72, 199, 142, 0.35);
+}
+.notify-title--success,
+.notify-text--success {
+  color: #48c78e;
+}
+
+/* warning - 黄色/琥珀色 */
+.notify-card--warning {
+  border-color: rgba(255, 183, 77, 0.4);
+}
+.notify-title--warning,
+.notify-text--warning {
+  color: #ffb74d;
+}
+
+/* error - 红色 */
+.notify-card--error {
+  border-color: rgba(255, 107, 107, 0.4);
+}
+.notify-title--error,
+.notify-text--error {
+  color: #ff6b6b;
+}
+
+/* info - 淡蓝/白色（默认） */
+.notify-card--info {
+  border-color: rgba(130, 177, 255, 0.3);
+}
+.notify-title--info,
+.notify-text--info {
+  color: #82b1ff;
+}

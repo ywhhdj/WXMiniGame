@@ -1,0 +1,9 @@
+<!-- components/base/Typewriter/Typewriter.wxml -->
+<view class="typewriter {{showBg ? 'typewriter--bg' : ''}}" style="height: {{bgHeight}};">
+  <text>{{displayText}}</text>
+  <text
+    hidden="{{!cursorVisible}}"
+    wx:if="{{showCursor && isTyping}}"
+    class="typewriter-cursor"
+    style="color: {{cursorColor}};">|</text>
+</view>

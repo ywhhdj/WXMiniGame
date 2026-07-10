@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "Icon":"/components/base/Icon/Icon",
+    "game-divider": "../GameDivider/GameDivider"
+  }
+}

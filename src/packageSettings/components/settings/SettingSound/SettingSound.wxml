@@ -1,0 +1,35 @@
+<setting-item icon="sound" title="音乐列表">
+  <view class="music-nav">
+    <view class="music-info">
+      <view class="music-info-icon">
+        <Icon type="music" />
+        <view class="music-name">{{currentMusic.name}}</view>
+      </view>
+      <view class="music-info-loop">{{loopType}}</view>
+    </view>
+    <view class="music-buttons">
+      <view bindtap="handlePlayPause" hidden="{{currentMusic.isPlaying}}">
+        <custom-button icon="play" size="20">播放</custom-button>
+      </view>
+      <view bindtap="handlePlayPause" hidden="{{!currentMusic.isPlaying}}">
+        <custom-button icon="pause" size="20">暂停</custom-button>
+      </view>
+      <view bindtap="handleStop">
+        <custom-button icon="stop" size="20">停止</custom-button>
+      </view>
+      <view bindtap="handleTaggleLoopType">
+        <Icon hidden="{{loopType !== '单曲循环'}}" type="once_loop" size="20" />
+        <Icon hidden="{{loopType !== '随机播放'}}" type="round" size="20" />
+        <Icon hidden="{{loopType !== '列表循环'}}" type="loop" size="20"/>
+      </view>
+    </view>
+  </view>
+  <scroll-view class="music-list">
+    <view wx:for="{{musicList}}" wx:key="url" class="music-item" wx:for-item="music" wx:for-index="idx">
+      <view class="music-item-name" bindtap="PlayMusic" data-index="{{idx}}">{{ music.name }}</view>
+      <view bindtap="handleDeleteMusic" class="action-btn-delete ">
+        <Icon type="delete" size="24" color="#666" />
+      </view>
+    </view>
+  </scroll-view>
+</setting-item>

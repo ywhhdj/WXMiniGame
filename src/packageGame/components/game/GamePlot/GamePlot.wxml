@@ -1,0 +1,67 @@
+<view class="game-plot-container">
+  <view class="game-plot-header">
+    <view class="game-plot-header-decor">◇</view>
+    <view class="game-plot-header-title">
+      <text>游历事件</text>
+    </view>
+    <view class="game-plot-header-decor">◇</view>
+  </view>
+  <scroll-view show-scrollbar="{{false}}" class="game-plot-content" scroll-y scroll-into-view="plot-{{showPlots.length - 1}}">
+    <view wx:for="{{showPlots}}" wx:key="index" wx:for-item="plot" id="plot-{{index}}">
+      <!-- {{plot.isChoice ? 'choice-item' : ''}} -->
+      <view wx:for="{{plot.text}}" wx:key="*this" class="game-plot-content-item" wx:for-item="text" wx:for-index="textIndex">
+        <view>
+          <view class="plot-age" wx:if="{{textIndex == 0 && !plot.isChoice}}">
+            道历{{plot.age}}年，
+          </view>
+          <text>{{text}}<text wx:if="{{textIndex == 0 && plot.age== 1}}" class="plot-gender">{{gender == "girl" ? '女':'男'}}孩</text></text>
+        </view>
+
+        <!-- 因为会性能卡死，打字机暂时不使用 保留功能-->
+        <!-- <typewriter text="{{text}}" color="#3A2218" bind:complete="onTypewriterComplete"/> -->
+        <text wx:if="{{plot.isLevelUpNode && textIndex == plot.text.length - 1}}">你突破到<text class="plot-level-up-name">{{level.name}}</text>!
+        </text>
+        <text class="plot-arrts" wx:if="{{plot.attrs && textIndex == plot.text.length - 1}}" wx:for="{{plot.attrs}}" wx:for-item="attrs" wx:for-index="tag" wx:key="index">
+          <text class="plot-arrts-tag {{tag==='reward'?'reward-tag':'punish-tag' }}">{{tag==='reward'?'成长':'惩罚'}}：</text>
+          <text wx:for="{{attrs}}" wx:key="*this" wx:for-item="attr">
+            <text class="plot-arrts-type">{{attributes[attr.type]}} </text><text class="plot-arrts-value {{tag==='reward'?'reward-tag':'punish-tag' }}">{{tag==='reward'? '+':'-'}}{{attr.value}} </text>
+          </text>
+        </text>
+        <text class="plot-traits" wx:if="{{plot.traits && textIndex == plot.text.length - 1}}" wx:for="{{plot.traits}}" wx:key="*this" wx:for-item="trait">
+          <text class="plot-traits-tag">仙灵获得：</text>
+          <text class="plot-traits-type level-{{trait.level}}">{{trait.name}} </text>
+        </text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<view class="game-plot-footer">
+  <view>
+    <button wx:if="{{!ended}}" bindtap="handleContinue">继续游历</button>
+    <button wx:else disabled class="footer-btn-ended">故事已终</button>
+  </view>
+  <view class="game-plot-back" bind:tap="handleBack">
+    <image style="height: 100rpx;width:150rpx;" src="/assets/images/icons/back.webp" mode="aspectFit" />
+  </view>
+</view>
+
+<!-- 抉择遮罩 -->
+<view class="plot-option-cover" hidden="{{currentOptions.length <= 0}}">
+  <view class="plot-options">
+    <view class="plot-options-header">
+      <text class="plot-options-title">抉 择</text>
+    </view>
+    <game-divider style="width: 80%;" />
+    <view class="plot-options-content">
+      <text>{{currentChoiceText}}</text>
+    </view>
+    <view class="plot-option-list">
+      <view class="plot-option-item" wx:for="{{currentOptions}}" wx:key="id" wx:for-item="opt" data-option="{{opt}}" bindtap="handleChoice">
+        <text class="option-marker">▸</text>
+        <text class="option-text">{{opt.choice}}</text>
+      </view>
+    </view>
+    <view class="plot-options-decor-top"></view>
+    <view class="plot-options-decor-bottom"></view>
+  </view>
+</view>

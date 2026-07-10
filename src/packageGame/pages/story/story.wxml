@@ -1,0 +1,20 @@
+<layout bgType="night">
+  <view class="w-full">
+    <game-role 
+      level="{{level}}"
+      gender="{{gender}}"
+      name="{{name}}"
+      age="{{age}}"
+      elements="{{elements}}"
+      attributes="{{attributes}}"
+      traits="{{traits}}"
+    />
+  </view>
+  <view class="flex w-full align-center justify-center story-container">
+   <game-plot
+    level="{{level}}"
+    gender="{{gender}}"
+    style="width: 99%;"
+    />
+  </view>
+</layout>

@@ -1,0 +1,376 @@
+/* ========================================
+   古风剧情面板 — Organic / 宣纸卷轴风格
+   ======================================== */
+
+/* ---------- 剧情容器 ---------- */
+.game-plot-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  height: 740rpx;
+  background: linear-gradient(180deg, #F5E6CC 0%, #EDD9B5 30%, #E8D2A8 100%);
+  border: 2rpx solid #C4A46C;
+  border-radius: 12rpx;
+  box-shadow:
+    inset 0 0 60rpx rgba(139, 105, 20, 0.08),
+    4rpx 4rpx 16rpx rgba(44, 24, 16, 0.15);
+  position: relative;
+  overflow: hidden;
+
+  /* 宣纸纹理叠层 */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2rpx,
+        rgba(139, 105, 20, 0.03) 2rpx,
+        rgba(139, 105, 20, 0.03) 4rpx);
+    z-index: 0;
+  }
+}
+
+/* ---------- 剧情头部 ---------- */
+.game-plot-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+  padding: 24rpx 30rpx 20rpx;
+  border-bottom: 2rpx solid #C4A46C;
+  background: linear-gradient(180deg, rgba(196, 164, 108, 0.18), transparent);
+  position: relative;
+  z-index: 1;
+}
+
+.game-plot-header-decor {
+  color: #8B6914;
+  font-size: 20rpx;
+  opacity: 0.7;
+}
+
+.game-plot-header-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #2C1810;
+  font-family: serif;
+  letter-spacing: 6rpx;
+}
+
+/* ---------- 剧情内容滚动区 ---------- */
+.game-plot-content {
+  max-height: 620rpx;
+  flex: 1;
+  padding: 16rpx 20rpx;
+  color: #3A2218;
+  font-family: serif;
+  position: relative;
+  z-index: 1;
+}
+
+.game-plot-content-item {
+  width: 650rpx;
+  margin-top: 18rpx;
+  background: rgba(255, 248, 240, 0.82);
+  border: 1rpx solid #D4C4A0;
+  border-radius: 6rpx;
+  padding: 18rpx 26rpx;
+  line-height: 2;
+  letter-spacing: 2rpx;
+  font-size: 28rpx;
+  box-shadow: 1rpx 2rpx 8rpx rgba(139, 105, 20, 0.1);
+  color: #3A2218;
+
+  .plot-arrts-type {
+    color: #ffb700;
+    font-weight: bold;
+  }
+
+  .plot-traits-tag,
+  .plot-arrts-tag.reward-tag,
+  .plot-arrts-value.reward-tag {
+    color: green;
+  }
+
+  .plot-level-up-name,
+  .plot-arrts-tag.punish-tag,
+  .plot-arrts-value.punish-tag {
+    color: #8B0000;
+  }
+
+  .plot-arrts {
+    display: flex;
+  }
+}
+
+.game-plot-content-item.choice-item {
+  background: rgba(245, 230, 204, 0.9);
+  border-left: 6rpx solid #8B6914;
+  color: #6B4423;
+  font-style: italic;
+}
+
+.plot-age {
+  display: inline-block;
+  color: #8B6914;
+  font-weight: bold;
+  font-size: 26rpx;
+  letter-spacing: 2rpx;
+}
+
+.plot-gender {
+  color: #5b8cc0;
+}
+
+.plot-traits .plot-traits-type  {
+  text-decoration: underline;
+  &.level-0 { color: #6B635C;}
+  &.level-1 { color: #3B6FA0;}
+  &.level-2 { color: #A06820; }
+  &.level-3 { color: #B02020; }
+}
+
+/* ---------- 底部继续按钮 ---------- */
+.game-plot-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 0 28rpx;
+  position: relative;
+  z-index: 1;
+
+
+  button {
+    background: linear-gradient(135deg, #8B6914, #A07828);
+    color: #FFF8DC;
+    border: 2rpx solid #6B4423;
+    border-radius: 10rpx;
+    font-family: serif;
+    font-size: 28rpx;
+    font-weight: bold;
+    padding: 16rpx 56rpx;
+    letter-spacing: 8rpx;
+    box-shadow: 2rpx 3rpx 8rpx rgba(44, 24, 16, 0.2);
+    transition: all 0.15s;
+
+    &:active {
+      background: linear-gradient(135deg, #6B4423, #8B6914);
+      transform: scale(0.96);
+    }
+
+    &.footer-btn-ended,
+    &[disabled] {
+      background: #A09080;
+      border-color: #8B7B6B;
+      color: #E0D5C5;
+      letter-spacing: 6rpx;
+    }
+  }
+
+  .game-plot-back {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+/* ========================================
+   抉择遮罩 — 居中卷轴面板
+   ======================================== */
+
+/* 全屏暗色蒙版 */
+.plot-option-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(20, 10, 5, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: maskFadeIn 0.35s ease;
+}
+
+/* 居中卷轴面板 */
+.plot-options {
+  width: 84%;
+  max-width: 600rpx;
+  background: linear-gradient(180deg, #F7EBD5 0%, #EFDFBF 40%, #EAD5AA 100%);
+  border: 3rpx solid #8B6914;
+  border-radius: 12rpx;
+  padding: 44rpx 32rpx 52rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24rpx;
+  box-shadow:
+    0 0 0 6rpx rgba(139, 105, 20, 0.18),
+    0 0 80rpx rgba(20, 10, 5, 0.55);
+  position: relative;
+  animation: panelSlideIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* 内层装饰边框 */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 8rpx;
+    left: 8rpx;
+    right: 8rpx;
+    bottom: 8rpx;
+    border: 1rpx solid rgba(196, 164, 108, 0.5);
+    border-radius: 8rpx;
+    pointer-events: none;
+  }
+}
+
+/* 卷轴顶部装饰条 */
+.plot-options-decor-top {
+  position: absolute;
+  top: 0;
+  left: 20rpx;
+  right: 20rpx;
+  height: 6rpx;
+  background: linear-gradient(90deg, transparent, #8B6914, #C4A46C, #8B6914, transparent);
+  border-radius: 3rpx;
+}
+
+/* 卷轴底部装饰条 */
+.plot-options-decor-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 20rpx;
+  right: 20rpx;
+  height: 6rpx;
+  background: linear-gradient(90deg, transparent, #8B6914, #C4A46C, #8B6914, transparent);
+  border-radius: 3rpx;
+}
+
+/* ---------- 抉择标题 ---------- */
+.plot-options-header {
+  padding: 8rpx 0 4rpx;
+  position: relative;
+}
+
+.plot-options-title {
+  font-size: 50rpx;
+  font-weight: bold;
+  color: #2C1810;
+  font-family: serif;
+  letter-spacing: 20rpx;
+  text-shadow: 2rpx 2rpx 4rpx rgba(139, 105, 20, 0.25);
+}
+
+/* ---------- 分隔线 ---------- */
+// .plot-options-divider {
+//   display: flex;
+//   align-items: center;
+//   gap: 10rpx;
+//   width: 70%;
+// }
+
+.divider-line {
+  flex: 1;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, #C4A46C, #8B6914, #C4A46C, transparent);
+}
+
+.divider-dot {
+  color: #8B6914;
+  font-size: 14rpx;
+  flex-shrink: 0;
+}
+
+/* ---------- 抉择情境文本 ---------- */
+.plot-options-content {
+  width: 100%;
+  padding: 12rpx 6rpx;
+  font-size: 27rpx;
+  color: #4A3020;
+  font-family: serif;
+  line-height: 1.9;
+  letter-spacing: 2rpx;
+  max-height: 180rpx;
+  overflow-y: auto;
+}
+
+/* ---------- 选项按钮列表 ---------- */
+.plot-option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  width: 100%;
+  margin-top: 6rpx;
+}
+
+.plot-option-item {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 22rpx 24rpx;
+  background: linear-gradient(135deg, rgba(255, 248, 240, 0.92), rgba(245, 230, 204, 0.92));
+  border: 2rpx solid #C4A46C;
+  border-radius: 10rpx;
+  box-shadow: 1rpx 2rpx 6rpx rgba(139, 105, 20, 0.12);
+  transition: all 0.18s ease;
+
+  &:active {
+    background: linear-gradient(135deg, #8B6914, #A07828);
+    border-color: #6B4423;
+    transform: scale(0.97);
+    box-shadow: 0 0 12rpx rgba(139, 105, 20, 0.4);
+
+    .option-marker {
+      color: #FFD700;
+    }
+
+    .option-text {
+      color: #FFF8DC;
+    }
+  }
+}
+
+.option-marker {
+  color: #8B6914;
+  font-size: 22rpx;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.option-text {
+  font-size: 29rpx;
+  color: #2C1810;
+  font-family: serif;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 2rpx;
+}
+
+/* ---------- 动画 ---------- */
+@keyframes maskFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30rpx) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

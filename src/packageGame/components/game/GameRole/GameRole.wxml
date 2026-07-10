@@ -1,0 +1,142 @@
+<view class="game-role-outer">
+  <!-- 卷轴装饰顶边 -->
+  <view class="game-role-decor-bar game-role-decor-bar--top"></view>
+
+  <!-- 标题栏 -->
+  <view class="game-role-header">
+    <text class="game-role-header-decor">◇</text>
+    <text class="game-role-header-name">{{name}}</text>
+    <text class="game-role-header-decor">◇</text>
+  </view>
+
+  <!-- 副标题：境界 + 道历 -->
+  <view class="game-role-subtitle">
+    <text class="game-role-subtitle-text level-{{level.level}}">{{level.name}}</text>
+    <text class="game-role-subtitle-div">·</text>
+    <text class="game-role-subtitle-age">道历{{age}}年</text>
+  </view>
+  <game-divider />
+
+  <!-- 主体：头像 + 属性 双栏 -->
+  <view class="game-role-body">
+    <!-- 左侧：头像 -->
+    <view class="game-role-avatar-col">
+      <avatar src="{{avatar}}" size="{{100}}" />
+    </view>
+    <!-- 右侧：属性 -->
+    <view class="game-role-attrs-col">
+      <view class="game-role-attr-item" wx:for="{{attributes}}" wx:key="name" wx:for-item="attr">
+        <view class="game-role-attr-hd">
+          <text class="game-role-attr-name">{{attr.name}}</text>
+          <text class="game-role-attr-val">{{attr.val}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 修仙词条 -->
+  <game-divider />
+  <view class="game-role-traits">
+    <view class="game-role-traits-title">
+      <text class="traits-title-decor">—</text>
+      <text class="traits-title-text">仙途词条</text>
+      <text class="traits-title-decor">—</text>
+    </view>
+
+    <!-- 只展示词条名，紧凑列表 -->
+    <view class="game-role-traits-list">
+      <view
+        wx:for="{{displayTraits}}"
+        wx:key="id"
+        wx:for-item="item"
+        data-id="{{item.id}}"
+        bindtap="onTraitTap"
+        class="game-role-trait-name-item level-{{item.level}}"
+      >
+        <text class="trait-name-text">{{item.name}}</text>
+        <text class="trait-name-arrow">▸</text>
+      </view>
+    </view>
+
+    <!-- 展开/收起 -->
+    <view class="game-role-traits-toggle" wx:if="{{allTraits.length > maxCollapsedTraits}}" bindtap="onToggleTraits">
+      <text class="toggle-icon">{{showAllTraits ? '▲' : '▼'}}</text>
+      <text class="toggle-text">{{showAllTraits ? '收起词条' : '展开全部 (' + allTraits.length + ')'}}</text>
+    </view>
+
+    <!-- 空态 -->
+    <view class="game-role-traits-empty" wx:if="{{allTraits.length === 0}}">
+      <text class="empty-text">修仙之路，道心未显…</text>
+    </view>
+  </view>
+
+  <game-divider />
+  <!-- 五行灵根 -->
+  <view class="game-role-elements-row">
+    <view class="game-role-element" wx:for="{{elements}}" wx:key="name" wx:for-index="elKey" wx:for-item="el">
+      <view class="game-role-element-level-name level-{{el.level}}">{{el.leveName}}</view>
+      <view class="game-role-element-icon-name">
+        <image class="game-role-element-icon" src="{{elementMap[elKey]}}" mode="aspectFit" />
+        <text class="game-role-element-name -{{elKey}}">{{el.name}}灵根</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能按钮 -->
+  <view class="game-role-actions">
+    <view class="game-role-btn game-role-btn--save" bindtap="onSave">
+      <text>存 档</text>
+    </view>
+    <view class="game-role-btn game-role-btn--load" bindtap="onLoad">
+      <text>读 档</text>
+    </view>
+  </view>
+
+  <!-- 卷轴装饰底边 -->
+  <view class="game-role-decor-bar game-role-decor-bar--bottom" />
+</view>
+
+<!-- ========== 词条详情弹窗 ========== -->
+<view class="trait-popup-mask" hidden="{{!showTraitPopup}}" bindtap="onClosePopup">
+  <view class="trait-popup-card" catchtap="noop">
+    <!-- 等级标签 -->
+    <view class="popup-level-badge level-{{popupTrait.level}}">
+      <text>{{popupTrait.name}}</text>
+    </view>
+    <game-divider />
+    <!-- 描述 -->
+    <view class="popup-desc">{{popupTrait.desc}}</view>
+
+    <!-- 属性影响 -->
+    <view class="popup-effects" wx:if="{{popupTrait.hasEffect}}">
+      <view class="popup-effects-title">— 属性影响 —</view>
+
+      <!-- 正面属性 -->
+      <view class="popup-effect-row" wx:for="{{popupTrait.rewardAttrs}}" wx:key="label" wx:for-item="ef">
+        <text class="popup-effect-label">{{ef.label}}</text>
+        <text class="popup-effect-val popup-effect-val--plus">+{{ef.value}}</text>
+      </view>
+      <!-- 负面属性 -->
+      <view class="popup-effect-row" wx:for="{{popupTrait.punishAttrs}}" wx:key="label" wx:for-item="ef">
+        <text class="popup-effect-label">{{ef.label}}</text>
+        <text class="popup-effect-val popup-effect-val--minus">-{{ef.value}}</text>
+      </view>
+
+      <!-- 正面元素 -->
+      <view class="popup-effect-row" wx:for="{{popupTrait.rewardElements}}" wx:key="label" wx:for-item="ef">
+        <text class="popup-effect-label">{{ef.label}}灵根</text>
+        <text class="popup-effect-val popup-effect-val--plus">+{{ef.value}}</text>
+      </view>
+      <!-- 负面元素 -->
+      <view class="popup-effect-row" wx:for="{{popupTrait.punishElements}}" wx:key="label" wx:for-item="ef">
+        <text class="popup-effect-label">{{ef.label}}灵根</text>
+        <text class="popup-effect-val popup-effect-val--minus">-{{ef.value}}</text>
+      </view>
+    </view>
+    <game-divider />
+    <!-- 关闭提示 -->
+    <view class="popup-close-hint" bindtap="onClosePopup">
+      <text>点击关闭</text>
+    </view>
+  </view>
+</view>

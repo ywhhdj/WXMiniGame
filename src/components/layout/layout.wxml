@@ -1,0 +1,9 @@
+<view class="global-container">
+  <!-- 背景图（可选，用你之前封装的组件） -->
+  <background-image wx:if="{{!isOverrideBg}}" type="{{bgType}}" />
+  <!-- 页面内容插槽（每个页面的正文放在这里） -->
+  <view class="page-content">
+    <slot></slot>
+  </view>
+  <notification />
+</view>

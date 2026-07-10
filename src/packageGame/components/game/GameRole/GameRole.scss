@@ -1,0 +1,639 @@
+/* ========================================
+   古风角色面板 — Organic / 宣纸卷轴风格
+   ======================================== */
+//变量
+$game-role-bg-color: #F7EBD5;
+$game-role-border-color: #C4A46C;
+$game-role-border-width: 2rpx;
+$game-role-border-radius: 12rpx;
+$game-role-padding: 8rpx 20rpx 16rpx;
+$game-role-box-shadow: 0 0 0 4rpx rgba(139, 105, 20, 0.1), 3rpx 4rpx 14rpx rgba(44, 24, 16, 0.18);
+$game-role-decor-bar-height: 5rpx;
+$game-role-decor-bar-margin: 0 16rpx;
+$game-role-decor-bar-border-radius: 2rpx;
+$glod:#b0a060;
+$wood:#5a9a5a;
+$water:#5b8cc0;
+$fire:#c06050;
+$earth:#b89840;
+
+/* ---------- 外层容器 ---------- */
+.game-role-outer {
+  width: 95%;
+  background: linear-gradient(180deg, #F7EBD5 0%, #EFDFBF 40%, #EAD5AA 100%);
+  border: 2rpx solid $game-role-border-color;
+  border-radius: 12rpx;
+  padding: 8rpx 20rpx 16rpx;
+  position: relative;
+  box-shadow:
+    0 0 0 4rpx rgba(139, 105, 20, 0.1),
+    3rpx 4rpx 14rpx rgba(44, 24, 16, 0.18);
+  overflow: hidden;
+
+  /* 宣纸纹理 */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2rpx,
+        rgba(139, 105, 20, 0.025) 2rpx,
+        rgba(139, 105, 20, 0.025) 4rpx
+      );
+    z-index: 0;
+  }
+}
+
+/* 顶部/底部装饰金线 */
+.game-role-decor-bar {
+  height: 5rpx;
+  margin: 0 16rpx;
+  border-radius: 2rpx;
+  background: linear-gradient(90deg, transparent, $game-role-border-color, #8B6914, $game-role-border-color, transparent);
+  position: relative;
+  z-index: 1;
+
+  &--top {
+    margin-bottom: 4rpx;
+  }
+  &--bottom {
+    margin-top: 4rpx;
+  }
+}
+
+/* ---------- 标题 ---------- */
+.game-role-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 8rpx 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+.game-role-header-decor {
+  color: #8B6914;
+  font-size: 18rpx;
+  opacity: 0.65;
+}
+
+.game-role-header-name {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #2C1810;
+  font-family: serif;
+  letter-spacing: 10rpx;
+}
+
+/* ---------- 副标题 ---------- */
+.game-role-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 2rpx 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+.game-role-subtitle-text,
+.game-role-subtitle-age {
+  font-size: 22rpx;
+  font-family: serif;
+  letter-spacing: 2rpx;
+}
+
+
+
+.game-role-subtitle-text{
+  // 练气期：浅铜色，朴实初生
+  &.level-0{
+    color: #9c8a6e;
+    text-shadow: 1rpx 1rpx 2rpx rgba(139, 105, 20, 0.15);
+  }
+  // 筑基期：翠绿色，生机勃发
+  &.level-1{
+    color: #3e8e5e;
+    text-shadow: 1rpx 1rpx 3rpx rgba(62, 142, 94, 0.25);
+  }
+  // 金丹期：赤金色，大道初成
+  &.level-2{
+    color: #c4802e;
+    text-shadow: 1rpx 1rpx 4rpx rgba(196, 128, 46, 0.35);
+  }
+  //元婴期:紫色，元婴初成
+  &.level-3{
+    color: #6d148b;
+    text-shadow: 1rpx 1rpx 5rpx rgba(139, 105, 20, 0.45);
+  }
+}
+
+.game-role-subtitle-age{
+  color: #e95e2c;
+}
+
+.game-role-subtitle-div {
+  font-size: 24rpx;
+  color: #b97a0c;
+}
+
+/* ---------- 主体：头像 + 属性 ---------- */
+.game-role-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20rpx;
+  padding: 8rpx 4rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 左侧头像 */
+.game-role-avatar-col {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rpx;
+  border: 2rpx solid rgba(196, 164, 108, 0.5);
+  border-radius: 10rpx;
+  background: rgba(255, 248, 240, 0.5);
+}
+
+/* 右侧属性区 */
+.game-role-attrs-col {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8rpx 24rpx;
+  padding: 4rpx 8rpx;
+}
+
+.game-role-attr-item {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6rpx;
+  min-width: 100rpx;
+}
+
+.game-role-attr-hd {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game-role-attr-name {
+  font-size: 20rpx;
+  color: #6B4E3D;
+  font-family: serif;
+  letter-spacing: 2rpx;
+  &::after {
+    content: ':';
+    color: #9B7B5D;
+    margin-left: 2rpx;
+  }
+}
+
+.game-role-attr-val {
+  font-size: 22rpx;
+  color: #8B4513;
+  font-weight: bold;
+  font-family: serif;
+}
+
+/* ========== 词条区域 ========== */
+.game-role-traits {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 4rpx;
+}
+
+.game-role-traits-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 4rpx 0 6rpx;
+
+  .traits-title-decor {
+    color: #C4A46C;
+    font-size: 20rpx;
+    letter-spacing: 4rpx;
+  }
+
+  .traits-title-text {
+    font-size: 20rpx;
+    color: #e35706;
+    font-family: serif;
+    letter-spacing: 6rpx;
+  }
+}
+
+/* ---------- 词条名列表（紧凑、仅名称） ---------- */
+.game-role-traits-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  padding: 4rpx 0;
+}
+
+.game-role-trait-name-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rpx;
+  padding: 6rpx 14rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(196, 164, 108, 0.3);
+  transition: all 0.15s;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  /* ---- Level 颜色 ---- */
+  // Level 0: 负面，灰色
+  &.level-0 {
+    background: rgba(139, 134, 130, 0.18);
+    border-color: rgba(139, 134, 130, 0.4);
+    .trait-name-text { color: #6B635C; }
+    .trait-name-arrow { color: #A09B96; }
+  }
+
+  // Level 1: 蓝色
+  &.level-1 {
+    background: rgba(91, 140, 192, 0.15);
+    border-color: rgba(91, 140, 192, 0.4);
+    .trait-name-text { color: #3B6FA0; }
+    .trait-name-arrow { color: #5B8CC0; }
+  }
+
+  // Level 2: 金色
+  &.level-2 {
+    background: linear-gradient(135deg, rgba(196, 128, 46, 0.12), rgba(176, 160, 96, 0.18));
+    border-color: rgba(196, 128, 46, 0.45);
+    .trait-name-text {
+      color: #A06820;
+      text-shadow: 0 0 4rpx rgba(196, 128, 46, 0.3);
+    }
+    .trait-name-arrow { color: #C4802E; }
+  }
+
+  // Level 3: 深红，最高级
+  &.level-3 {
+    background: linear-gradient(135deg, rgba(180, 30, 30, 0.15), rgba(160, 20, 20, 0.22));
+    border-color: rgba(200, 40, 40, 0.5);
+    box-shadow: 0 0 8rpx rgba(200, 40, 40, 0.2);
+    .trait-name-text {
+      color: #B02020;
+      text-shadow: 0 0 6rpx rgba(200, 40, 40, 0.35);
+      font-weight: bold;
+    }
+    .trait-name-arrow { color: #C83030; }
+  }
+}
+
+.trait-name-text {
+  font-size: 20rpx;
+  font-family: serif;
+  letter-spacing: 2rpx;
+}
+
+.trait-name-arrow {
+  font-size: 16rpx;
+  opacity: 0.6;
+}
+
+/* ---------- 展开/收起 ---------- */
+.game-role-traits-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+  padding: 8rpx 0 4rpx;
+  opacity: 0.8;
+
+  &:active { opacity: 1; }
+
+  .toggle-icon {
+    font-size: 18rpx;
+    color: #8B6914;
+  }
+
+  .toggle-text {
+    font-size: 20rpx;
+    color: #8B6914;
+    font-family: serif;
+    letter-spacing: 2rpx;
+  }
+}
+
+/* ---------- 空态 ---------- */
+.game-role-traits-empty {
+  display: flex;
+  justify-content: center;
+  padding: 20rpx 0;
+
+  .empty-text {
+    font-size: 20rpx;
+    color: #B0A080;
+    font-family: serif;
+    font-style: italic;
+    letter-spacing: 4rpx;
+  }
+}
+
+/* ========== 词条详情弹窗 ========== */
+.trait-popup-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(20, 12, 8, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: traitFadeIn 0.2s ease;
+}
+
+@keyframes traitFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.trait-popup-card {
+  width: 66%;
+  min-height: 400rpx;
+  max-width: 560rpx;
+  max-height: 75vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #F7EBD5 0%, #EFDFBF 40%, #EAD5AA 100%);
+  border: 2rpx solid $game-role-border-color;
+  border-radius: 16rpx;
+  padding: 24rpx 24rpx 28rpx;
+  box-shadow: 0 8rpx 32rpx rgba(44, 24, 16, 0.35);
+  position: relative;
+  animation: traitPopupIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* 宣纸纹理 */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2rpx,
+        rgba(139, 105, 20, 0.025) 2rpx,
+        rgba(139, 105, 20, 0.025) 4rpx
+      );
+    z-index: 0;
+    border-radius: 16rpx;
+  }
+}
+
+@keyframes traitPopupIn {
+  from { transform: scale(0.88); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* 等级标签（弹窗顶部） */
+.popup-level-badge {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 10rpx 0 6rpx;
+  margin-bottom: 12rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  font-family: serif;
+  letter-spacing: 8rpx;
+
+  // Level 0: 灰色
+  &.level-0 { color: #78706A; }
+  // Level 1: 蓝色
+  &.level-1 { color: #3B6FA0; }
+  // Level 2: 金色
+  &.level-2 {
+    color: #A06820;
+    text-shadow: 0 0 8rpx rgba(196, 128, 46, 0.3);
+  }
+  // Level 3: 深红（最高级）
+  &.level-3 {
+    color: #B02020;
+    text-shadow:
+      0 0 8rpx rgba(200, 40, 40, 0.4),
+      0 0 16rpx rgba(200, 40, 40, 0.2);
+  }
+}
+
+/* 描述文本 */
+.popup-desc {
+  position: relative;
+  z-index: 1;
+  font-size: 24rpx;
+  color: #4A3525;
+  font-family: serif;
+  letter-spacing: 3rpx;
+  line-height: 1.8;
+  padding: 12rpx 16rpx;
+  margin-bottom: 12rpx;
+  background: rgba(255, 248, 240, 0.5);
+  border-radius: 10rpx;
+  border: 1rpx solid rgba(196, 164, 108, 0.3);
+  text-indent: 2em;
+}
+
+/* 影响区域 */
+.popup-effects {
+  position: relative;
+  z-index: 1;
+}
+
+.popup-effects-title {
+  text-align: center;
+  font-size: 20rpx;
+  color: #8B6914;
+  font-family: serif;
+  letter-spacing: 4rpx;
+  padding: 8rpx 0 10rpx;
+  opacity: 0.8;
+}
+
+.popup-effect-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  margin-bottom: 6rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 248, 240, 0.4);
+  border: 1rpx solid rgba(196, 164, 108, 0.15);
+}
+
+.popup-effect-label {
+  font-size: 22rpx;
+  color: #5C3D2E;
+  font-family: serif;
+  letter-spacing: 2rpx;
+}
+
+.popup-effect-val {
+  font-size: 24rpx;
+  font-weight: bold;
+  font-family: serif;
+
+  &--plus {
+    color: #3A7734;
+    text-shadow: 0 0 4rpx rgba(58, 119, 52, 0.2);
+  }
+  &--minus {
+    color: #C04040;
+    text-shadow: 0 0 4rpx rgba(192, 64, 64, 0.2);
+  }
+}
+
+/* 关闭提示 */
+.popup-close-hint {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 16rpx 0 4rpx;
+  font-size: 20rpx;
+  color: #B0A080;
+  font-family: serif;
+  letter-spacing: 4rpx;
+  opacity: 0.7;
+
+  &:active { opacity: 1; }
+}
+
+/* ---------- 五行灵根 ---------- */
+.game-role-elements-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8rpx 4rpx 4rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.game-role-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10rpx;
+}
+.game-role-element-level-name{
+  writing-mode: vertical-rl;
+  font-size: 20rpx;
+  color: white;
+  padding: 6rpx 4rpx;
+  border-radius: 8rpx;
+  font-family: serif;
+  font-weight: 550;
+  transition: all 0.35s ease;
+  box-shadow: 1rpx 2rpx 6rpx rgba(44, 24, 16, 0.15);
+
+  // 初级灵根：青灰色，白手起家
+  &.level-0{
+    background: linear-gradient(180deg, #5395e2, #4a5568);
+    text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.3);
+  }
+  // 中级灵根：翡翠绿，渐入佳境
+  &.level-1{
+    background: linear-gradient(180deg, #5aa67a, #3b7d52);
+    text-shadow: 1rpx 1rpx 3rpx rgba(0, 0, 0, 0.3);
+    box-shadow: 1rpx 2rpx 8rpx rgba(59, 125, 82, 0.3);
+  }
+  // 高级灵根：宝蓝色，高深莫测
+  &.level-2{
+    background: linear-gradient(180deg, #5b8cc0, #2c5f8a);
+    text-shadow: 1rpx 1rpx 4rpx rgba(0, 0, 0, 0.35);
+    box-shadow: 1rpx 2rpx 10rpx rgba(44, 95, 138, 0.35);
+  }
+  // 至尊灵根：赤金色，天选之资
+  &.level-3{
+    background: linear-gradient(180deg, #e93216, #19aaf8);
+    color: #fffdf5;
+    text-shadow: 1rpx 1rpx 4rpx rgba(184, 112, 32, 0.5);
+    box-shadow: 1rpx 2rpx 12rpx rgba(232, 168, 64, 0.45),
+                0 0 16rpx rgba(232, 168, 64, 0.25);
+  }
+}
+
+.game-role-element-icon-name{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rpx;
+}
+.game-role-element-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.game-role-element-name {
+  font-size: 18rpx;
+  font-family: serif;
+  letter-spacing: 1rpx;
+
+  &.-gold   { color: $glod; }
+  &.-wood   { color: $wood; }
+  &.-water  { color: $water; }
+  &.-fire   { color: $fire; }
+  &.-earth  { color: $earth; }
+}
+
+/* ---------- 功能按钮 ---------- */
+.game-role-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24rpx;
+  padding: 10rpx 0 4rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.game-role-btn {
+  padding: 14rpx 40rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #C4A46C;
+  font-family: serif;
+  font-size: 24rpx;
+  letter-spacing: 6rpx;
+  transition: all 0.15s;
+  box-shadow: 1rpx 2rpx 6rpx rgba(139, 105, 20, 0.12);
+
+  &--save {
+    background: linear-gradient(135deg, #F5E6CC, #EDD9B5);
+    color: #6B4423;
+  }
+
+  &--load {
+    background: linear-gradient(135deg, #8B6914, #A07828);
+    color: #FFF8DC;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10rpx rgba(139, 105, 20, 0.3);
+  }
+}

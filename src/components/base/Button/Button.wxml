@@ -1,0 +1,4 @@
+<view class="button">
+  <Icon type="{{icon}}" src="{{icon}}"  size="{{size}}"/>
+  <slot></slot>
+</view>

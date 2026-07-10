@@ -1,0 +1,78 @@
+$gold-accent: #e2c498;
+$panel-dark: #16213e;
+$text-parchment: #c9b99a;
+$fire-red: #e06c5c;
+
+.avatar-portrait {
+  position: relative;
+  margin-bottom: 16rpx;
+
+  /* 外圈光晕 */
+  &-ring {
+    position: absolute;
+    inset: -6rpx;
+    border-radius: 50%;
+    border: 3rpx dashed rgba($gold-accent, 0.3);
+    animation: ringRotate 12s linear infinite;
+  }
+}
+
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.avatar-portrait-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3rpx solid rgba($gold-accent, 0.5);
+  box-shadow:
+    0 0 20rpx rgba($gold-accent, 0.15),
+    inset 0 0 12rpx rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  &--visible {
+    opacity: 1;
+  }
+}
+
+/* 头像加载中 — 脉冲占位 */
+.avatar-portrait-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3rpx solid rgba($gold-accent, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba($panel-dark, 0.8),
+    rgba($panel-dark, 0.4),
+    rgba($panel-dark, 0.8)
+  );
+  background-size: 200% 200%;
+  animation: portraitShimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes portraitShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* 头像加载失败 */
+.avatar-portrait-error {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3rpx solid rgba($fire-red, 0.4);
+  background: rgba($panel-dark, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-icon {
+    font-size: 48rpx;
+    color: rgba($text-parchment, 0.35);
+    font-weight: 700;
+  }
+}

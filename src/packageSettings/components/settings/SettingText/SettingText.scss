@@ -1,0 +1,18 @@
+.text-speed-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.speed-label {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: #b3b1b1;
+  white-space: nowrap;
+}
+
+.text-sample-wrap{
+  width: 620rpx;
+  height: 90rpx;
+}

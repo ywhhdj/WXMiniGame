@@ -1,0 +1,143 @@
+/* components/settings/SoundSetting.vue/SoundSetting.wxss */
+
+.music-upload {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  align-items: center;
+}
+
+.music-list {
+  max-height: 200px;
+  margin-top: 15px;
+  border: 1px solid #555;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+// .music-name {
+//   flex-grow: 1;
+//   text-align: center;
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   color: #eee;
+// }
+
+.empty-list {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+}
+
+.music-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+  transition: background-color 0.2s;
+}
+
+.music-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: purple;
+}
+
+.music-item:last-child {
+  border-bottom: none;
+}
+
+.music-item-name {
+  font-weight: bolder;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.action-btn-delete {
+  flex-shrink: 0;
+  margin-left: 10px;
+  padding: 8px 16px;
+  font-size: 12px;
+  border: 0px solid #555;
+  color: #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.action-btn-delete.glass-effect {
+  background: rgba(255, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.action-btn-delete.glass-effect:hover {
+  transform: translateY(-1px);
+  background: rgba(207, 0, 0, 0.3);
+}
+
+.left-button.big {
+  width: 100px;
+}
+
+.music-upload {
+  margin-top: 15px;
+}
+
+@media (max-width: 426px) {
+  .music-item-progress {
+    display: none;
+  }
+}
+
+.music-nav {
+  background: #ffffff1a;
+  margin: 5px;
+  border-radius: 20px;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  justify-content: space-around;
+  background-color: rgba(167, 167, 167, 0.2);
+  backdrop-filter: blur(10px);
+  align-items: center;
+  .music-info{
+    border-radius: 8px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    .music-info-icon {
+      min-width: 90px;
+      color: purple;
+      overflow: hidden;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    .music-info-loop{
+      align-self: center;
+      color: #b3b1b1;
+      font-size: 12px;
+    }
+  }
+  .music-buttons {
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+}

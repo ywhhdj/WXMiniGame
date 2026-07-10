@@ -1,0 +1,28 @@
+<setting-item icon="speed" title="文字显示速度">
+  <view class="text-speed-wrap">
+    <custom-silder
+      value="{{speed}}"
+      min="1"
+      max="100"
+      step="1"
+      showValue="{{true}}"
+      bind:change="onSpeedChange"
+      bind:changing="onSpeedChanging"
+    >
+    <view slot="left"><text>慢</text></view>
+    <view slot="right">快</view>
+    </custom-silder>
+  </view>
+</setting-item>
+<setting-item icon="text" title="显示文字样本">
+  <view class="text-sample-wrap">
+    <typewriter
+      class="typewriter"
+      text="显示用测试文本"
+      speed="{{speed}}"
+      showBg="{{true}}"
+      showCursor="{{true}}"
+      cursorColor="#0000FF"
+    />
+  </view>
+</setting-item>

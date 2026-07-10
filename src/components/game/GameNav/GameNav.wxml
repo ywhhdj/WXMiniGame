@@ -1,0 +1,3 @@
+<view class="flex flex-col items-stretch w-87">
+  <button wx:for="{{navList}}" bind:tap="onGameAction" wx:key="action" data-action="{{item.action}}"  class="menu-item">{{item.name}}</button>
+</view>

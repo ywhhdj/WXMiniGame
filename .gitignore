@@ -1,0 +1,8 @@
+*/**/node_modules
+.rules
+.codebuddy
+.workbuddy
+codebuddy-plugin
+typings/types/wx
+CODEBUDDY.md
+*/**/*.js

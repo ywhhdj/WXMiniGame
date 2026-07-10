@@ -1,0 +1,86 @@
+<layout isOverrideBg="{{true}}">
+  <view class="talent-page">
+    <!-- 顶部装饰金线 -->
+    <view class="talent-decor-bar talent-decor-bar--top"></view>
+
+    <!-- 标题区 -->
+    <view class="talent-header">
+      <text class="talent-header-decor">◇</text>
+      <text class="talent-header-title">天命所归</text>
+      <text class="talent-header-decor">◇</text>
+    </view>
+    <view class="talent-subtitle">
+      <text class="talent-subtitle-text">天道赐福，选择你的仙途词条</text>
+    </view>
+
+    <game-divider />
+
+    <!-- 词条卡片列表 -->
+    <view class="talent-list">
+      <view wx:for="{{talents}}" wx:key="id" wx:for-item="trait" class="talent-card {{trait.selected ? 'talent-card--selected' : ''}} level-{{trait.level}}" data-id="{{trait.id}}" bindtap="onTalentTap">
+        <!-- 选中角标 -->
+        <view class="talent-check" wx:if="{{trait.selected}}">
+          <text class="talent-check-icon">✓</text>
+        </view>
+
+        <!-- 词条名称与等级 -->
+        <view class="talent-card-hd">
+          <text class="talent-card-name">{{trait.name}}</text>
+          <text class="talent-card-level level-{{trait.level}}">
+            <text wx:if="{{trait.level === 0}}">负</text>
+            <text wx:elif="{{trait.level === 1}}">中</text>
+            <text wx:elif="{{trait.level === 2}}">上</text>
+            <text wx:elif="{{trait.level === 3}}">极</text>
+          </text>
+        </view>
+
+        <!-- 描述 -->
+        <view class="talent-card-desc">{{trait.desc}}</view>
+
+        <!-- 效果预览 -->
+        <view class="talent-card-effects" wx:if="{{trait.hasEffect}}">
+          <!-- 正面属性 -->
+          <view class="talent-effect-row" wx:for="{{trait.rewardAttrs}}" wx:key="label" wx:for-item="ef">
+            <text class="talent-effect-label">{{ef.label}}</text>
+            <text class="talent-effect-val talent-effect-val--plus">+{{ef.value}}</text>
+          </view>
+          <!-- 负面属性 -->
+          <view class="talent-effect-row" wx:for="{{trait.punishAttrs}}" wx:key="label" wx:for-item="ef">
+            <text class="talent-effect-label">{{ef.label}}</text>
+            <text class="talent-effect-val talent-effect-val--minus">-{{ef.value}}</text>
+          </view>
+          <!-- 元素加成 -->
+          <view class="talent-effect-row" wx:for="{{trait.rewardElements}}" wx:key="label" wx:for-item="ef">
+            <text class="talent-effect-label">{{ef.label}}灵根</text>
+            <text class="talent-effect-val talent-effect-val--plus">+{{ef.value}}</text>
+          </view>
+          <view class="talent-effect-row" wx:for="{{trait.punishElements}}" wx:key="label" wx:for-item="ef">
+            <text class="talent-effect-label">{{ef.label}}灵根</text>
+            <text class="talent-effect-val talent-effect-val--minus">-{{ef.value}}</text>
+          </view>
+        </view>
+
+        <!-- 底部装饰点 -->
+        <view class="talent-card-dots">
+          <text class="talent-dot" wx:for="{{[1,2,3,4,5]}}" wx:key="*this">·</text>
+        </view>
+      </view>
+    </view>
+
+    <game-divider />
+
+    <!-- 底部确认按钮 -->
+    <view class="talent-footer">
+      <view class="talent-count-hint">
+        <text class="talent-count-num">{{selectedCount}}</text>
+        <text class="talent-count-text">项天赋已选</text>
+      </view>
+      <view class="talent-confirm-btn {{selectedCount > 0 ? '' : 'talent-confirm-btn--disabled'}}" bindtap="onConfirm">
+        <text class="talent-confirm-text">天 命 启 程</text>
+      </view>
+    </view>
+
+    <!-- 底部装饰金线 -->
+    <view class="talent-decor-bar talent-decor-bar--bottom"></view>
+  </view>
+</layout>

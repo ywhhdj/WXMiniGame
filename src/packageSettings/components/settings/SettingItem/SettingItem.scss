@@ -1,0 +1,33 @@
+$bg-deep:linear-gradient(135deg, #b8cfe4, #03082b9e);
+
+.setting-item {
+  width: 93%;
+  background: $bg-deep;
+  border-radius: 8rpx;
+  padding: 15px;
+  backdrop-filter: blur(3px);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.setting-item-header{
+  gap: 10px;
+  border-bottom: 3px solid #6f86af;
+  margin-bottom:10px;
+  display: flex;
+  align-items: center;
+}
+
+.title{
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  padding-bottom: calc(.25rem * 2);
+}
+.main-content{
+  width: 100%;
+}

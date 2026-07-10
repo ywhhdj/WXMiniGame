@@ -1,0 +1,21 @@
+/* components/base/Typewriter/Typewriter.scss */
+.typewriter {
+  display: inline-block;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* 黑色低透明度圆角背景 */
+.typewriter--bg {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12rpx;
+  padding: 20rpx 20rpx;
+  width: 100%;
+}
+
+/* 光标 */
+.typewriter-cursor {
+  display: inline;
+  animation: typewriter-blink 0.5s step-end infinite;
+}

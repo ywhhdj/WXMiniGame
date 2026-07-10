@@ -1,0 +1,18 @@
+<view class="image-container">
+  <swiper
+    wx:if="{{enableSwiper && bgImages.length > 1}}"
+    class="bg-swiper"
+    current="{{currentIndex}}"
+    autoplay="{{true}}"
+    interval="{{swiperInterval}}"
+    duration="1500"
+    circular="{{true}}"
+    bindchange="onSwiperChange"
+  >
+    <swiper-item wx:for="{{bgImages}}" wx:key="*this">
+      <image class="bg-image" src="{{item}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+  <image wx:else class="bg-image" src="{{currentImage}}" mode="aspectFill" />
+</view>
+

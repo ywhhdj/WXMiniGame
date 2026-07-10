@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "layout":"/components/layout/layout",
+    "Button":"/components/base/Button/Button",
+    "game-nav":"/components/game/GameNav/GameNav",
+    "background-music":"/components/layout/BackgroundMusic/BackgroundMusic",
+    "achievement":"/components/layout/BackgroundAchievement/BackgroundAchievement"
+  }
+}

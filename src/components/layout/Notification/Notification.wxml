@@ -1,0 +1,9 @@
+<view class="notify-overlay {{visible ? 'notify-overlay--show' : ''}}">
+  <view class="notify-card notify-card--{{levelType}} {{animating ? 'notify-card--enter' : ''}}">
+    <text class="notify-icon">{{iconMap[levelType] || '✨'}}</text>
+    <view class="notify-body">
+      <text wx:if="{{title}}" class="notify-title notify-title--{{levelType}}">{{title}}</text>
+      <text class="notify-text notify-text--{{levelType}}">{{message}}</text>
+    </view>
+  </view>
+</view>

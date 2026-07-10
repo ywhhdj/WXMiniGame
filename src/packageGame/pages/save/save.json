@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "save-card": "../../components/cards/SaveCard/SaveCard",
+    "layout": "/components/layout/layout",
+    "Icon": "/components/base/Icon/Icon",
+    "avatar": "/components/base/Avatar/Avatar"
+  }
+}

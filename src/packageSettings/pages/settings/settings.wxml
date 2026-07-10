@@ -1,0 +1,14 @@
+<layout bgType="night">
+  <view class="flex nav">
+    <view class="title-container">
+      <text class="title">设置</text>
+    </view>
+  </view>
+  <view class="settings-page">
+    <sound-setting />
+    <text-setting />
+  </view>
+  <view class="footer" bindtap="onBack">
+    <image style="height: 100rpx;width:150rpx;" src="/assets/images/icons/back.webp" mode="aspectFit" />
+  </view>
+</layout>

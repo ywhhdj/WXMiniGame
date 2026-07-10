@@ -1,0 +1,20 @@
+.menu-item{
+  background: transparent;
+  color: #fff;
+  border: none;
+  margin-top: 15px;
+  padding: 5px;
+  font-size: clamp(32px, 4vw, 72px);
+  font-family: Maoken Assorted Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+  cursor: pointer;
+  text-align: justify;
+  text-align-last: justify;
+  white-space: nowrap;
+  transition: transform .4s cubic-bezier(.18, .89, .32, 1.28), color .3s ease, text-shadow .3s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+  &:active{
+    transform: scale(1.05);
+    text-shadow: 0 0 10px rgba(143, 207, 239);
+    transform: scale(1.05);
+  }
+}
