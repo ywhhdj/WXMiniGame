@@ -3,6 +3,7 @@ $--color-brand:#79d9ff;
 $--tw-border-style: solid;
 $--tw-border-width: 2px;
 
+/* 原文件存在重复的 .flex-col / .w-full / .items-center 定义，此处合并去重 */
 .gap-1{
   gap: calc($--spacing * 1);
 }
@@ -13,35 +14,26 @@ $--tw-border-width: 2px;
 .align-center{
   align-self: center;
 }
-
 .justify-center{
   justify-content: center;
 }
-
 .flex-row{
   flex-direction: row;
 }
-
 .flex-col{
   flex-direction: column;
 }
-
 .align-right{
   align-self: flex-end;
 }
 .w-full{
   width: 100%;
 }
-
 .h-100vh{
   min-height: 100vh;
 }
-
 .items-stretch {
   align-items: stretch;
-}
-.flex-col {
-  flex-direction: column;
 }
 .w-87 {
   width: calc($--spacing * 87.5);
@@ -49,7 +41,6 @@ $--tw-border-width: 2px;
 .flex {
   display: flex;
 }
-
 .border-brand, .border-brand30 {
   border-color: $--color-brand;
 }
@@ -60,12 +51,8 @@ $--tw-border-width: 2px;
 .items-center {
   align-items: center;
 }
-.w-full {
-  width: 100%;
-}
-
 .mb-4 {
-margin-bottom: calc($--spacing * 4);
+  margin-bottom: calc($--spacing * 4);
 }
 .py-2 {
   padding-block: calc($--spacing * 2);
@@ -78,9 +65,6 @@ margin-bottom: calc($--spacing * 4);
 }
 .justify-between {
   justify-content: space-between;
-}
-.items-center {
-  align-items: center;
 }
 
 @keyframes fadeIn {

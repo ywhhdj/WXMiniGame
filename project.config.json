@@ -2,7 +2,10 @@
   "miniprogramRoot": "src/",
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
-    "useCompilerPlugins": ["typescript", "sass"],
+    "useCompilerPlugins": [
+      "typescript",
+      "sass"
+    ],
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -20,7 +23,7 @@
     "es6": true,
     "compileWorklet": false,
     "uglifyFileName": false,
-    "uploadWithSourceMap": true,
+    "uploadWithSourceMap": false,
     "packNpmManually": false,
     "minifyWXSS": true,
     "minifyWXML": true,
@@ -31,9 +34,8 @@
     "disableUseStrict": false
   },
   "appid": "wxd0c8590e63c4e1d7",
-  "projectname": "quickstart-wx-cloud",
+  "projectname": "wx-mini-game",
   "libVersion": "3.16.0",
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {
     "search": {
       "list": []
@@ -48,24 +50,28 @@
       "list": []
     },
     "miniprogram": {
-      "list": [
-        {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide"
-        }
-      ]
+      "list": []
     }
   },
   "compileType": "miniprogram",
-  "srcMiniprogramRoot": "src/",
+  "srcMiniprogramRoot": "miniprogram/",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "glob",
+        "value": "**/*.md"
+      },
+      {
+        "type": "glob",
+        "value": "**/*.map"
+      }
+    ],
     "include": []
   },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "simulatorPluginLibVersion": {}
+  "simulatorPluginLibVersion": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }

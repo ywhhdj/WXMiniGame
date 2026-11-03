@@ -1,18 +1,17 @@
-import { paths } from "../../../config";
+import { paths } from "@src/config";
 
-let _swiperTimer: number | null = null;
-
+/** 轮播定时器挂在组件实例上（原为模块级单例，多实例会互相覆盖并泄漏） */
 Component({
   properties: {
-    type:{
-      type:String,
+    type: {
+      type: String,
       value: "night" as AppUI.BgImageType
     },
-    enableSwiper:{
+    enableSwiper: {
       type: Boolean,
       value: false
     },
-    swiperInterval:{
+    swiperInterval: {
       type: Number,
       value: 8000
     }
@@ -24,6 +23,7 @@ Component({
   },
   lifetimes: {
     attached() {
+      (this as any)._swiperTimer = 0;
       if (this.properties.enableSwiper && this.data.bgImages.length > 1) {
         this.startAutoPlay();
       }
@@ -34,20 +34,22 @@ Component({
   },
   methods: {
     startAutoPlay() {
+      const self = this as any;
       this.stopAutoPlay();
-      _swiperTimer = setInterval(() => {
+      self._swiperTimer = setInterval(() => {
         const next = (this.data.currentIndex + 1) % this.data.bgImages.length;
         this.setData({ currentIndex: next });
       }, this.properties.swiperInterval) as unknown as number;
     },
     stopAutoPlay() {
-      if (_swiperTimer !== null) {
-        clearInterval(_swiperTimer);
-        _swiperTimer = null;
+      const self = this as any;
+      if (self._swiperTimer) {
+        clearInterval(self._swiperTimer);
+        self._swiperTimer = 0;
       }
     },
     onSwiperChange(e: WechatMiniprogram.SwiperChange) {
       this.setData({ currentIndex: e.detail.current });
     }
   }
-})
+});

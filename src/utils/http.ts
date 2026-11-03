@@ -1,60 +1,41 @@
-const send = <T = any>(
-  request: {
-    type: string;
-    data?: Record<string, any>;
-  }
-):Promise<API.CloudResponse<T>> => {
-  return new Promise((
-    resolve:(res:API.CloudResponse<T>)=>void,
-    reject:(err:string)=>void
-    ) => {
-    wx.cloud
-    .callFunction({
-      name: "quickstartFunctions",
-      data: {
-        type: request.type,
-        data: request.data,
-      },
-    })
-    .then((res) => {
-      if (res.result) {
-        let result=res.result as string|API.CloudResponse<T>;
-        if(typeof result==="string"){
-          result=JSON.parse(result) as API.CloudResponse<T>
-        }else{
-          result=result as API.CloudResponse<T>
-        }
-        resolve(result);
-      } else {
-        reject(res.errMsg);
-      }
-    })
-    .catch((err) => {
-      reject(err);
-    })
-  });
+import { LIMITS, utf8ByteLength } from "@shared/index";
+
+export interface JSONFileOptions<T> {
+  validate?: (data: T) => boolean;
+  maxBytes?: number;
 }
 
-export function getLocalJSONFile<T=any>(filePath: string):Promise<T> {
-  return new Promise((resolve, reject) => {
+export function getLocalJSONFile<T = unknown>(
+  filePath: string,
+  options?: JSONFileOptions<T>,
+): Promise<T> {
+  const maxBytes = options?.maxBytes ?? LIMITS.MAX_PAYLOAD_BYTES * 4;
+  return new Promise<T>((resolve, reject) => {
     wx.getFileSystemManager().readFile({
       filePath,
-      encoding: 'utf8',
-      success: (res) => {
-        if(res.errMsg!=="readFile:ok"){
-          reject(res.errMsg);
-          return
-        }else{
-          const data=res.data as string;
-          const json= JSON.parse(data);
+      encoding: "utf8",
+      success: (res: any) => {
+        try {
+          if (res.errMsg !== "readFile:ok") {
+            reject(new Error("readFile failed"));
+            return;
+          }
+          const text = res.data as string;
+          if (utf8ByteLength(text) > maxBytes) {
+            reject(new Error("json file too large"));
+            return;
+          }
+          const json = JSON.parse(text) as T;
+          if (options?.validate && !options.validate(json)) {
+            reject(new Error("json validation failed"));
+            return;
+          }
           resolve(json);
+        } catch (err) {
+          reject(err instanceof Error ? err : new Error("json parse failed"));
         }
       },
-      fail: (err) => {
-        reject(err);
-      }
+      fail: (err: any) => reject(err),
     });
   });
 }
-
-export default send;

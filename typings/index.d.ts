@@ -19,7 +19,10 @@ interface IAppOption {
       openid?:string,
     }
   },
+  onLaunch?(): void,
   loadCloudData:()=>Promise<void>,
+  restoreCloudData:()=>Promise<void>,
   parseCloudFilePath:()=>void,
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
+  destroyAudio:()=>void,
 }

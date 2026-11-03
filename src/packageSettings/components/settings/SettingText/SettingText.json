@@ -1,9 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "Icon": "/components/base/Icon/Icon",
-    "setting-item": "../SettingItem/SettingItem",
-    "custom-silder": "/components/base/Silder/Silder",
-    "typewriter": "/components/base/Typewriter/Typewriter"
-  }
-}

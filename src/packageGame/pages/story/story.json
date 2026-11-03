@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "layout": "/components/layout/layout",
-    "game-role": "../../components/game/GameRole/GameRole",
-    "game-plot": "../../components/game/GamePlot/GamePlot"
-  }
-}

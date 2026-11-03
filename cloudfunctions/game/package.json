@@ -1,0 +1,16 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "pretest": "pnpm run build"
+  },
+  "dependencies": {
+    "wx-server-sdk": "^2.6.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

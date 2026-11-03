@@ -17,8 +17,13 @@
     "strict": true,
     "strictPropertyInitialization": true,
     "lib": ["ES2020"],
-    "typeRoots": ["./typings"]
+    "typeRoots": ["/typings"],
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["./shared/*"],
+      "@src/*":["./src/*"]
+    }
   },
   "include": ["./**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "cloudfunctions"]
 }

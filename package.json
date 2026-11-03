@@ -1,6 +1,23 @@
 {
-  "scripts": {},
-	"devDependencies": {
-		"miniprogram-api-typings": "^2.8.3"
-	}
+  "name": "wx-mini-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "微信小程序修仙文字游戏",
+  "scripts": {
+    "sync:shared": "node scripts/sync-shared.js",
+    "sync:shared:check": "node scripts/sync-shared.js --check",
+    "inject:env": "node scripts/inject-env.js",
+    "env:check": "node scripts/inject-env.js --check",
+    "env:restore": "node scripts/inject-env.js --restore",
+    "validate:plots": "node scripts/validate-plots.js",
+    "build:shared": "node scripts/build-shared.js",
+    "test": "node scripts/selftest.js",
+    "typecheck": "tsc --noEmit -p tsconfig.shared.json && tsc --noEmit -p tsconfig.cloud.json",
+    "build:cloud": "bash scripts/build-cloud.sh",
+    "deploy:cloud": "bash scripts/deploy.sh"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "miniprogram-api-typings": "^2.8.3"
+  }
 }

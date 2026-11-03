@@ -1,6 +1,7 @@
-const envList:string[] = [
-  "cloud1-d5g13xntx36481a06"
-];
+import { CLOUD_ENV, AUDIO_CLOUD_FILE_IDS, AUDIO_LOCAL_PATHS } from "./config/env";
+
+/** 兼容旧引用：云环境 ID 统一由 config/env.ts 集中管理 */
+const envList: string[] = [CLOUD_ENV];
 const isMac = false;
 const paths={
   icons:{
@@ -40,21 +41,18 @@ const paths={
   } as Record<AppUI.BgImageType,string>,
   audios: [
     {
-      url: "cloud://cloud1-d5g13xntx36481a06.636c-cloud1-d5g13xntx36481a06-1438972521/夏·烟火.mp3",
+      url: AUDIO_CLOUD_FILE_IDS[0],
       name: "夏·烟火",
       isPlaying: true,
       id: "music_1"
     },{
-      url: "cloud://cloud1-d5g13xntx36481a06.636c-cloud1-d5g13xntx36481a06-1438972521/穿越时空的思念钢琴版.m4a",
+      url: AUDIO_CLOUD_FILE_IDS[1],
       name: "穿越时空的思念",
       isPlaying: false,
       id: "music_2"
     }
   ] as AppUI.Audio[],
-  localAudios:[
-    "/assets/audios/夏·烟火.mp3",
-    "/assets/audios/穿越时空的思念钢琴版.m4a"
-  ],
+  localAudios: Array.from(AUDIO_LOCAL_PATHS),
   gamePlotsFilePath:"/assets/data/game_plots.json"
 }
 const defaultAudioInfo:IAppOption["globalData"]["audio"]= {

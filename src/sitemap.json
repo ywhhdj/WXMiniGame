@@ -1,7 +1,9 @@
 {
-  "desc": "关于本文件的更多信息，请参考文档 https://developers.weixin.qq.com/miniprogram/dev/framework/sitemap.html",
-  "rules": [{
-    "action": "allow",
-    "page": "*"
-  }]
+  "desc": "游戏内容不参与微信索引；如需开放首页，请单独按页面配置 allow 规则。参考 https://developers.weixin.qq.com/miniprogram/dev/framework/sitemap.html",
+  "rules": [
+    {
+      "action": "disallow",
+      "page": "*"
+    }
+  ]
 }

@@ -14,8 +14,21 @@
   width: 100%;
 }
 
-/* 光标 */
+/* 光标：纯 CSS 闪烁，原实现引用了未定义的 keyframes，靠 JS setInterval 每 500ms setData 才闪 */
 .typewriter-cursor {
   display: inline;
   animation: typewriter-blink 0.5s step-end infinite;
+  will-change: opacity;
+}
+
+@keyframes typewriter-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -1,8 +1,8 @@
 <!-- components/base/Typewriter/Typewriter.wxml -->
 <view class="typewriter {{showBg ? 'typewriter--bg' : ''}}" style="height: {{bgHeight}};">
   <text>{{displayText}}</text>
+  <!-- 光标闪烁由 CSS @keyframes 承担，不再需要 JS setData 驱动 -->
   <text
-    hidden="{{!cursorVisible}}"
     wx:if="{{showCursor && isTyping}}"
     class="typewriter-cursor"
     style="color: {{cursorColor}};">|</text>

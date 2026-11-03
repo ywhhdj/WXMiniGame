@@ -1,5 +1,5 @@
-import events from "../../../utils/event";
-import { showNotification } from "../../../events/notifyEvents";
+import events from "@src/utils/event";
+import { showNotification } from "@src/events/notifyEvents";
 Component({
   data: {
     navList: [
@@ -28,6 +28,8 @@ Component({
     exitGame() {
       wx.exitMiniProgram({
         success() {
+          const app = getApp<IAppOption>() as any;
+          if (typeof app.destroyAudio === "function") app.destroyAudio();
           events.clean();
         },
         fail() {
@@ -42,14 +44,14 @@ Component({
         case 0:
           const random = Math.random();
           const gender = random < 0.5 ? "girl" : "boy";
-          wx.navigateTo({ url: "/packageGame/pages/talent/talent?gender=" + gender });
+          wx.navigateTo({ url: "/pages/talent/talent?gender=" + gender });
           break;
         case 1:
           // 点击"继续游戏"：跳转存档页，由存档页在用户选择读档时设置 gameAction
-          wx.navigateTo({ url: "/packageGame/pages/save/save" });
+          wx.navigateTo({ url: "/pages/save/save" });
           break;
         case 2:
-          wx.navigateTo({ url:"/packageSettings/pages/settings/settings" });
+          wx.navigateTo({ url:"/pages/settings/settings" });
           break;
         case 3:
           this.exitGame();

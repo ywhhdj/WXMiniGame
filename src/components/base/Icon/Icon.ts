@@ -1,4 +1,4 @@
-import { paths } from "../../../config";
+import { paths } from "@src/config";
 Component({
   properties: {
     hidden: {

@@ -1,103 +1,61 @@
-import { showNotification } from "../events/notifyEvents";
-import send from "../utils/http";
-enum CloudEventType {
-  SaveGameData = "saveGameData",
-  LoadGameData = "loadGameData",
-  SyncAchievements = "syncAchievements",
-  SyncEndings = "syncEndings",
-  OpenId = "getOpenId",
-}
+/**
+ * @deprecated 兼容层：新代码统一使用 services/repository 与 services/cloud。
+ * 保留旧函数名，避免历史分支一次性改动过大；实现已改为走新数据门面。
+ */
+import * as repository from "@src/services/repository";
+import { showNotification } from "@src/events/notifyEvents";
 
-export async function getUserOpenId(): Promise<string|null>{
-  try {
-    const result = await send<API.OpenIdResponse>({
-      type: CloudEventType.OpenId,
-    });
-    if(result.success && result.data){
-      return result.data.openid;
-    }
-  } catch (err) {}
+/** 身份不再下发客户端：openid 只在云函数侧通过 getWXContext 获取 */
+export async function getUserOpenId(): Promise<string | null> {
   return null;
 }
 
 export async function saveGameDataToCloud(
-  data: API.CloudGameData
+  _data?: API.CloudGameData,
 ): Promise<boolean> {
-  try {
-    const result = await send<API.CloudGameData>({
-      type: CloudEventType.SaveGameData,
-      data: data,
-    });
-    if (result && result.success) {
-      console.log("[CloudSync] 游戏数据已保存到云端");
-      return true;
-    }
-    console.warn("[CloudSync] 保存失败:", result?.errMsg);
-    return false;
-  } catch (err) {
-    console.warn("[CloudSync] 云端保存异常，使用本地存储:", err);
-    return false;
-  }
+  const result = await repository.saveCurrentState();
+  return result.ok;
 }
 
 export async function loadGameDataFromCloud(): Promise<API.CloudGameData | null> {
-  try {
-    const result = await send<API.CloudGameData>({
-      type: CloudEventType.LoadGameData,
-    });
-    if (result && result.success && result.data) {
-      console.log("[CloudSync] 游戏数据已从云端加载");
-      return result.data;
-    }
-  } catch (err) {
-    showNotification({
-      title:"数据加载",
-      message:"云端加载异常，使用本地数据",
-      levelType:"warning"
-    })
-  }
-  return null;
+  const result = await repository.loadSnapshot();
+  if (!result.snapshot) return null;
+  const s = result.snapshot;
+  return {
+    currentRole: s.currentRole as unknown as AppGame.Role | null,
+    roles: {},
+    saves: s.saves as unknown as AppUI.ArchiveItem[],
+    achievements: s.achievements,
+    endings: s.endings,
+  };
 }
 
-export async function syncAchievementsToCloud(
-  achievements: string[]
-): Promise<void> {
-  try {
-    await send<void>({
-      type: CloudEventType.SyncAchievements,
-      data: ({ achievements } as unknown) as Record<string, unknown>,
-    });
-  } catch (_err) {}
+export async function syncAchievementsToCloud(achievements: string[]): Promise<void> {
+  await repository.syncAchievements(achievements);
 }
 
 export async function syncEndingsToCloud(
-  endings: { sceneId: string; endingKey: string }[]
+  endings: { sceneId: string; endingKey: string }[],
 ): Promise<void> {
-  try {
-    await send<void>({
-      type: CloudEventType.SyncEndings,
-      data: ({ endings } as unknown) as Record<string, unknown>,
-    });
-  } catch (_err) {}
+  await repository.syncEndings(endings);
 }
 
+/** 私有云存储文件换取临时链接；失败由调用方回退到本地资源 */
 export async function getTempFileURL(
-  fileList: string[]
+  fileList: string[],
 ): Promise<ICloud.GetTempFileURLResultItem[]> {
-  return new Promise(
-    (
-      resolve: (res: ICloud.GetTempFileURLResultItem[]) => void,
-      reject: () => void
-    ) => {
-      wx.cloud.getTempFileURL({
-        fileList,
-        success: (res) => {
-          resolve(res.fileList || []);
-        },
-        fail: (err) => {
-          reject();
-        },
-      });
-    }
-  );
+  return new Promise((resolve) => {
+    wx.cloud.getTempFileURL({
+      fileList,
+      success: (res: any) => resolve(res.fileList || []),
+      fail: () => {
+        showNotification({
+          title: "资源加载",
+          message: "云端音频暂不可用，已切换本地资源",
+          levelType: "info",
+        });
+        resolve([]);
+      },
+    });
+  });
 }

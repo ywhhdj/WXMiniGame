@@ -1,29 +1,19 @@
 {
   "pages": [
-    "pages/index/index"
-  ],
-  "subPackages": [
-    {
-      "root": "packageGame",
-      "name": "game",
-      "pages": [
-        "pages/talent/talent",
-        "pages/story/story",
-        "pages/save/save"
-      ]
-    },
-    {
-      "root": "packageSettings",
-      "name": "settings",
-      "pages": [
-        "pages/settings/settings"
-      ]
-    }
+    "pages/index/index",
+    "pages/talent/talent",
+    "pages/story/story",
+    "pages/save/save",
+    "pages/settings/settings"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFEFB"
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "resolveAlias": {
+    "@shared/*": "allShared/*",
+    "@src/*": "/*"
+  }
 }

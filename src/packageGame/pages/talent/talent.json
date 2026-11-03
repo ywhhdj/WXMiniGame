@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "layout": "/components/layout/layout",
-    "game-divider": "../../components/game/GameDivider/GameDivider"
-  }
-}

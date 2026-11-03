@@ -1,12 +1,12 @@
 {
   "setting": {
     "compileHotReLoad": false,
-    "urlCheck": false,
+    "urlCheck": true,
     "coverView": true,
     "lazyloadPlaceholderEnable": true,
     "skylineRenderEnable": false,
     "preloadBackgroundData": false,
-    "autoAudits": false,
+    "autoAudits": true,
     "useApiHook": true,
     "useApiHostProcess": true,
     "showShadowRootInWxmlPanel": true,
@@ -19,7 +19,7 @@
     "useIsolateContext": true
   },
   "condition": {},
-  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "projectname": "miniprogram-3",
+  "description": "项目私有配置。此文件中的内容将覆盖 project.config.json 中的相同字段。urlCheck 保持开启；本地调试如需关闭请显式修改并在发布前还原。详见 https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "projectname": "wx-mini-game",
   "libVersion": "3.16.0"
 }

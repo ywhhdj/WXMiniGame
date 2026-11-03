@@ -31,6 +31,8 @@
   /* 初始状态：右侧隐藏 + 略向下 */
   transform: translateX(120%) translateY(10px);
   opacity: 0;
+  /* 提升为合成层：避免 backdrop-filter 在滑入动画期间反复光栅化 */
+  will-change: transform, opacity;
   transition: transform 0.38s cubic-bezier(0.22, 0.61, 0.36, 1),
               opacity 0.38s ease-out;
 }

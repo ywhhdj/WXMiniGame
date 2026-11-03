@@ -47,7 +47,7 @@
       <view class="ending-summary achievement-summary">
         <text class="ending-summary-icon">🎯</text>
         <text class="text">成就进度：{{collectedAchievements}} / {{totalAchievements}}</text>
-        <text class="text">{{totalAchievements ? Math.round(collectedAchievements / totalAchievements * 100) : 0}}%</text>
+        <text class="text">{{achievementProgress}}%</text>
       </view>
 
       <view class="achievements-list">

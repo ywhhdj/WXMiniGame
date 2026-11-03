@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "layout": "/components/layout/layout",
-    "Icon": "/components/base/Icon/Icon",
-    "sound-setting": "../../components/settings/SettingSound/SettingSound",
-    "text-setting": "../../components/settings/SettingText/SettingText"
-  }
-}

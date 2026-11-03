@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "avatar":"/components/base/Avatar/Avatar",
-    "game-divider": "../GameDivider/GameDivider"
-  }
-}
