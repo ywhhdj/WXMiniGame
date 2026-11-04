@@ -24,25 +24,25 @@ database/  docs/  scripts/  .github/
 npm install
 
 # 2. 按环境注入云环境 ID 与云存储 fileID（.env.local 不入库）
-cp .env.example .env.local
-#    编辑 .env.local
-npm run inject:env
+cp .env.example .env
+#    编辑 .env
+pnpm run inject:env
 
 # 3. 同步共享契约到小程序与两个云函数
-npm run sync:shared
+pnpm run sync:shared
 
 # 4. 校验（CI 执行同一套命令）
-npm run validate:plots      # 剧情数据引用与枚举
-npm run typecheck           # 共享层 + 云函数类型检查
-npm run build:shared && npm test   # 校验器自测（注入/超长/伪造等 20 例）
-npm run build:cloud         # 编译云函数 TS → JS
+pnpm run validate:plots      # 剧情数据引用与枚举
+pnpm run typecheck           # 共享层 + 云函数类型检查
+pnpm run build:shared && npm test   # 校验器自测（注入/超长/伪造等 20 例）
+pnpm run build:cloud         # 编译云函数 TS → JS
 
 # 5. 微信开发者工具导入项目根目录，按 database/权限配置.md 配置集合与索引
 # 6. 上传云函数（需 WECHAT_CLI 指向开发者工具 CLI）
-WECHAT_CLI=/path/to/cli npm run deploy:cloud -- <envId>
+WECHAT_CLI=/path/to/cli pnpm run deploy:cloud -- <envId>
 ```
 
-微信开发者工具中还需开启「云开发」、创建与 `.env.local` 中 `CLOUD_ENV` 一致的环境；小程序类型由 `miniprogram-api-typings` 提供，务必先 `npm install`。
+微信开发者工具中还需开启「云开发」、创建与 `.env` 中 `CLOUD_ENV` 一致的环境；小程序类型由 `miniprogram-api-typings` 提供，务必先 `npm install`。
 
 ## 常用命令
 
