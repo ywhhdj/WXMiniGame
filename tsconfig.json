@@ -22,8 +22,9 @@
     "paths": {
       "@shared/*": ["./shared/*"],
       "@src/*":["./src/*"]
-    }
+    },
+    "types": ["node"]
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "./**/*.mjs"],
   "exclude": ["node_modules", "cloudfunctions"]
 }

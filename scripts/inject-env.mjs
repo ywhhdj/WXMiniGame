@@ -1,27 +1,20 @@
 #!/usr/bin/env node
-'use strict';
 /**
  * 按环境注入云环境 ID / 云存储 fileID / appid 白名单。
  * 用法：
- *   node scripts/inject-env.js            读取 .env.local（不入库）与 process.env
- *   node scripts/inject-env.js --check    校验 env.ts 的注入区块完整
- *   node scripts/inject-env.js --restore  还原为仓库默认值（提交前执行）
+ *   node scripts/inject-env.mjs            读取 .env.local（不入库）与 process.env
+ *   node scripts/inject-env.mjs --check    校验 env.ts 的注入区块完整
  */
-const fs = require('fs');
-const path = require('path');
+import * as path from 'path';
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const TARGET = path.join(ROOT, 'src/config/env.ts');
-const DOTENV = path.join(ROOT, '.env.local');
+const DOTENV = path.join(ROOT, '.env');
 const BEGIN = '/* ENV:BEGIN */';
 const END = '/* ENV:END */';
-
-const DEFAULTS = {
-  CLOUD_ENV: 'cloud1-d5g13xntx36481a06',
-  AUDIO_FILE_ID_1: 'cloud://cloud1-d5g13xntx36481a06.636c-cloud1-d5g13xntx36481a06-1438972521/夏·烟火.mp3',
-  AUDIO_FILE_ID_2: 'cloud://cloud1-d5g13xntx36481a06.636c-cloud1-d5g13xntx36481a06-1438972521/穿越时空的思念钢琴版.m4a',
-  APPID_ALLOWLIST: '',
-};
 
 function readDotEnv() {
   if (!fs.existsSync(DOTENV)) return {};
@@ -44,8 +37,6 @@ function buildBlock(v) {
     BEGIN,
     `export const CLOUD_ENV = ${JSON.stringify(v.CLOUD_ENV)};`,
     'export const AUDIO_CLOUD_FILE_IDS = [',
-    `  ${JSON.stringify(v.AUDIO_FILE_ID_1)},`,
-    `  ${JSON.stringify(v.AUDIO_FILE_ID_2)},`,
     '] as const;',
     `export const APPID_ALLOWLIST: readonly string[] = ${JSON.stringify(list)};`,
     END,
@@ -64,11 +55,6 @@ function replaceBlock(block) {
 }
 
 const args = process.argv.slice(2);
-if (args.includes('--restore')) {
-  replaceBlock(buildBlock(DEFAULTS));
-  console.log('[inject:env] 已还原为仓库默认配置');
-  process.exit(0);
-}
 if (args.includes('--check')) {
   const src = fs.readFileSync(TARGET, 'utf8');
   const ok = src.includes(BEGIN) && src.includes(END) && /export const CLOUD_ENV = ".+";/.test(src);
@@ -76,8 +62,11 @@ if (args.includes('--check')) {
   process.exit(ok ? 0 : 1);
 }
 
-const values = { ...DEFAULTS, ...readDotEnv() };
-for (const k of Object.keys(DEFAULTS)) {
+const values = { CLOUD_ENV: process.env.CLOUD_ENV,...readDotEnv() };
+for (const k of Object.keys([
+  'CLOUD_ENV',
+  'APPID_ALLOWLIST',
+])) {
   if (process.env[k]) values[k] = process.env[k];
 }
 if (!values.CLOUD_ENV) {
@@ -85,4 +74,4 @@ if (!values.CLOUD_ENV) {
   process.exit(1);
 }
 replaceBlock(buildBlock(values));
-console.log(`[inject:env] 已注入 CLOUD_ENV=${values.CLOUD_ENV}（请勿提交 .env.local）`);
+console.log(`[inject:env] 已注入 CLOUD_ENV=${values.CLOUD_ENV}（请勿提交 .env）`);

@@ -1,20 +1,25 @@
 #!/usr/bin/env node
-'use strict';
 /**
  * 共享校验器自测：注入、超长、超大、伪造成就/结局、非法存档 ID、版本冲突参数等。
  * 运行前先执行 npm run build:shared。
  */
-const path = require('path');
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.resolve(__dirname, '../.build/shared');
+
 let S;
+let C;
 try {
   S = require(path.join(OUT, 'schema.js'));
-  require(path.join(OUT, 'constants.js'));
+  C = require(path.join(OUT, 'constants.js'));
 } catch (e) {
   console.error('[selftest] 找不到编译产物，请先执行 npm run build:shared');
   process.exit(1);
 }
-const C = require(path.join(OUT, 'constants.js'));
 
 function makeRole() {
   const els = {};

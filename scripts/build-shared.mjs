@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-'use strict';
 /** 把纯 TS 的 shared/ 转译为 CommonJS 到 .build/shared/，供 selftest.js 直接 require。 */
-const fs = require('fs');
-const path = require('path');
+import * as path from 'path';
+import * as fs from 'fs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 let ts;
 try {
   ts = require(process.env.TYPESCRIPT_JS || 'typescript');

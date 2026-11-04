@@ -10,9 +10,9 @@ cloudfunctions/**/*.js
 cloudfunctions/**/*.js.map
 
 # 本地环境配置（含生产云环境 ID / appid 白名单），绝不入库
-.env.local
-.env.*.local
-miniprogram/config/env.local.*
+.env
+.env.*
+miniprogram/config/env.*
 
 # 编辑器 / AI 工具私有目录
 .rules

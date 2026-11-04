@@ -4,20 +4,21 @@
   "private": true,
   "description": "微信小程序修仙文字游戏",
   "scripts": {
-    "sync:shared": "node scripts/sync-shared.js",
-    "sync:shared:check": "node scripts/sync-shared.js --check",
-    "inject:env": "node scripts/inject-env.js",
-    "env:check": "node scripts/inject-env.js --check",
-    "env:restore": "node scripts/inject-env.js --restore",
-    "validate:plots": "node scripts/validate-plots.js",
-    "build:shared": "node scripts/build-shared.js",
-    "test": "node scripts/selftest.js",
+    "sync:shared": "node scripts/sync-shared.mjs",
+    "sync:shared:check": "node scripts/sync-shared.mjs --check",
+    "inject:env": "node scripts/inject-env.mjs",
+    "env:check": "node scripts/inject-env.mjs --check",
+    "env:restore": "node scripts/inject-env.mjs --restore",
+    "validate:plots": "node scripts/validate-plots.mjs",
+    "build:shared": "node scripts/build-shared.mjs",
+    "test": "node scripts/selftest.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.shared.json && tsc --noEmit -p tsconfig.cloud.json",
     "build:cloud": "bash scripts/build-cloud.sh",
     "deploy:cloud": "bash scripts/deploy.sh"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
-    "miniprogram-api-typings": "^2.8.3"
+    "@types/node": "^26.6.6",
+    "miniprogram-api-typings": "^2.8.3",
+    "typescript": "^5.4.5"
   }
 }

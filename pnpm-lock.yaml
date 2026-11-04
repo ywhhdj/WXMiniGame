@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@types/node':
+        specifier: ^26.6.6
+        version: 26.6.6
       miniprogram-api-typings:
         specifier: ^2.8.3
         version: 2.12.0
@@ -17,6 +20,9 @@ importers:
 
 packages:
 
+  '@types/node@26.6.6':
+    resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
+
   miniprogram-api-typings@2.12.0:
     resolution: {integrity: sha512-ibvbqeslVFur0IAvTxLMvsbtvVcMo6gwvOnj0YZHV7aeDLu091VQRrETT2QuiG9P6aZWRcxeNGJChRKVPCp9VQ==}
 
@@ -25,8 +31,17 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
+
 snapshots:
+
+  '@types/node@26.6.6':
+    dependencies:
+      undici-types: 8.9.0
 
   miniprogram-api-typings@2.12.0: {}
 
   typescript@5.9.3: {}
+
+  undici-types@8.9.0: {}

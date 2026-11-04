@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-'use strict';
 /**
  * 剧情 JSON 完整性校验：结构、引用、枚举、文本长度、环、境界标记。
  * 不依赖第三方库，可直接在 CI 与本地运行。
  */
-const fs = require('fs');
-const path = require('path');
+import * as path from 'path';
+import * as fs from 'fs';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const FILE = path.resolve(__dirname, '../src/assets/data/game_plots.json');
 const ATTR_IDS = ['potential', 'root', 'wit', 'chance', 'goodness'];
@@ -15,8 +15,7 @@ const LEVEL_NAMES = ['练气期', '筑基期', '金丹期', '元婴期', '化神
 const TERMINAL_NODES = new Set(['end', 'end_1']);
 const MAX_TEXT = 2000;
 const NODE_KEY_ALLOW = new Set([
-  'id', 'text', 'next', 'attrs', 'traits', 'options', 'isLevelUpNode',
-  'isLevelUpNone', // 历史拼写错误，仅告警
+  'id', 'text', 'next', 'attrs', 'traits', 'options', 'isLevelUpNode'
 ]);
 const OPTION_KEY_ALLOW = new Set(['id', 'text', 'choice', 'attrs', 'traits', 'next']);
 

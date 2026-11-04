@@ -33,7 +33,7 @@
     "disableSWC": true,
     "disableUseStrict": false
   },
-  "appid": "wxd0c8590e63c4e1d7",
+  "appid": "",
   "projectname": "wx-mini-game",
   "libVersion": "3.16.0",
   "condition": {

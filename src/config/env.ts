@@ -4,10 +4,10 @@
  * 注意：云环境 ID 不是密钥（客户端必然可见），但必须集中管理以便多环境隔离与审计。
  */
 /* ENV:BEGIN */
-export const CLOUD_ENV = "cloud1-d5g13xntx36481a06";
+export const CLOUD_ENV = "";
 export const AUDIO_CLOUD_FILE_IDS = [
-  "cloud://cloud1-d5g13xntx36481a06.636c-cloud1-d5g13xntx36481a06-1438972521/夏·烟火.mp3",
-  "cloud://cloud1-d5g13xntx36481a06.636c-cloud1-d5g13xntx36481a06-1438972521/穿越时空的思念钢琴版.m4a",
+  undefined,
+  undefined,
 ] as const;
 export const APPID_ALLOWLIST: readonly string[] = [];
 /* ENV:END */
